@@ -12,7 +12,9 @@ Par la suite, la mise en pratique d’un pare-feu permettra d’approfondir la c
 a. En suivant la méthodologie vue en classe, établir la table de filtrage avec précision en spécifiant la source et la destination, le type de trafic (TCP/UDP/ICMP/any), les ports sources et destinations ainsi que l'action désirée (**Accept** ou **Drop**, éventuellement **Reject**). 
 | Adresse IP source     | Adresse IP destination | Type | Port src | Port dst  | Action |
 |-----------------------|------------------------|------|----------|-----------|--------|
+|(LAN) 192.168.100.0/24 | Interface WAN          | UDP  |          |    53     | ACCEPT | 1.
 |(LAN) 192.168.100.0/24 | Interface WAN          | UDP  |   53     |           | ACCEPT | 1.
+|(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |          |    53     | ACCEPT | 1.
 |(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |   53     |           | ACCEPT | 1.
 |(LAN) 192.168.100.0/24 | Interface WAN          | ICMP |          |           | ACCEPT | 2.
 |(LAN) 192.168.100.0/24 | (DMZ) 192.168.200.0/24 | ICMP |          |           | ACCEPT | 2.
@@ -157,6 +159,10 @@ g. Tester l’accès à ce serveur depuis le LAN utilisant utilisant wget (ne pa
 
 ### Règles pour le protocole ssh
 
+h. Créer et appliquer la règle adéquate pour que les **conditions 6 et 7 du cahier des charges** soient respectées.
+
+Commandes iptables :
+
 6. Le serveur de la DMZ peut être commandé à distance par ssh depuis votre client du LAN uniquement. Le service ssh utilise le port TCP 22.
 ```
 iptables -A FORWARD -s 192.168.100.3 -d 192.168.200.3 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT  
@@ -168,3 +174,19 @@ iptables -A FORWARD -s 192.168.200.3 -d 192.168.100.3 -p tcp --sport 22 -m state
 iptables -A INPUT -s 192.168.100.3 -d 192.168.100.2 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT  
 iptables -A OUTPUT -s 192.168.100.2 -d 192.168.100.3 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT    
 ```
+![](Picture/caamarche.png)
+
+
+i.  Expliquer l'utilité de **ssh** sur un serveur.
+**Réponse**
+Grâce à SSH on peut se connecter à distance sur une machine et y transférer des fichier si celle ci dispose d'un serveur SSH (source: linuxtricks.fr)
+
+j. En général, à quoi faut-il particulièrement faire attention lors de l'écriture des règles du pare-feu pour ce type de connexion ? 
+**Réponse**
+Il faut faire attention à ce que les règles du pare-feu n'autorisent **que** les utilisateurs autorisés à se connecter au serveur SSH
+
+
+### Règles finales iptables
+
+h. Insérer la capture d’écran avec toutes vos règles iptables
+![](Picture/iptables.png)
