@@ -90,7 +90,7 @@ c. Testez ensuite toutes les règles, depuis le Client_in_LAN puis depuis le ser
 | Interface DMZ du FW   | KO    | Cette interface appartient au firewall, de ce fait on n'est pas autorisée par les règles à la pinger                             |
 | Interface LAN du FW   | KO    | Même chose que pour l'interface DMZ                             |
 | Client LAN            | OK    | On laisse passer les pings du DWZ au LAN donc forcément le Server_in_DMZ peut pinger le client LAN                               |
-| Serveur WAN           | KO    | On n'est pas autorisé par les règles définies avec iptables à pinger le Serveur WAN entant Serveur sur la DMZ                             |
+| Serveur WAN           | KO    | On n'est pas autorisé par les règles définies avec iptables à pinger le Serveur WAN en tant que Serveur sur la DMZ                             |
 
 ### Règles pour le protocole DNS
 
