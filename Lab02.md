@@ -178,10 +178,12 @@ iptables -A OUTPUT -s 192.168.100.2 -d 192.168.100.3 -p tcp --sport 22 -m state 
 
 
 i.  Expliquer l'utilité de **ssh** sur un serveur.
+
 **Réponse**
 Grâce à SSH on peut se connecter à distance sur une machine et y transférer des fichier si celle ci dispose d'un serveur SSH (source: linuxtricks.fr)
 
-j. En général, à quoi faut-il particulièrement faire attention lors de l'écriture des règles du pare-feu pour ce type de connexion ? 
+j. En général, à quoi faut-il particulièrement faire attention lors de l'écriture des règles du pare-feu pour ce type de connexion ?
+
 **Réponse**
 Il faut faire attention à ce que les règles du pare-feu n'autorisent **que** les utilisateurs autorisés à se connecter au serveur SSH
 
