@@ -12,7 +12,7 @@ Par la suite, la mise en pratique d’un pare-feu permettra d’approfondir la c
 a. En suivant la méthodologie vue en classe, établir la table de filtrage avec précision en spécifiant la source et la destination, le type de trafic (TCP/UDP/ICMP/any), les ports sources et destinations ainsi que l'action désirée (**Accept** ou **Drop**, éventuellement **Reject**). 
 | Adresse IP source     | Adresse IP destination | Type | Port src | Port dst  | Action |
 |-----------------------|------------------------|------|----------|-----------|--------|
-|(LAN) 192.168.100.0/24 | Interface WAN          | DNS  |   53     |           | ACCEPT | 1.
+|(LAN) 192.168.100.0/24 | Interface WAN          | UDP  |   53     |           | ACCEPT | 1.
 |(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |   53     |           | ACCEPT | 1.
 |(LAN) 192.168.100.0/24 | Interface WAN          | ICMP |          |           | ACCEPT | 2.
 |(LAN) 192.168.100.0/24 | (DMZ) 192.168.200.0/24 | ICMP |          |           | ACCEPT | 2.
@@ -38,11 +38,11 @@ a. En suivant la méthodologie vue en classe, établir la table de filtrage avec
 ### Configuration de base
 
 Depuis votre Client_in_LAN, essayez de faire un ping sur le Server_in_DMZ (cela ne devrait pas fonctionner !) :
-![Tentative de ping](tentativePing.png)
+![](Picture/tentativePing.png)
 
-![Nouvelle tentative de ping](nouvelleTentativePing.png)
+![](Picture/nouvelleTentativePing.png)
 
-![Tentative de ping vers l'internet](tentativePingInternet.png)
+![](Picture/tentativePingInternet.png)
 
 ## Manipulations
 
@@ -74,13 +74,13 @@ b. Afin de tester la connexion entre le client (Client\_in\_LAN) et le WAN, tape
 
 + Faire une capture du ping.
 
-![Tentative de ping vers l'internet](tentativePing2.png)
+![](Picture/tentativePing2.png)
 
 c. Testez ensuite toutes les règles, depuis le Client_in_LAN puis depuis le serveur Web (Server_in_DMZ) et remplir le tableau suivant : 
 
 | De Client_in_LAN à    | OK/KO | Commentaires et explications | 
-|-----------------------|-------|------------------------------|
-| Interface DMZ du FW   | KO    |                              |
+|-----------------------|-------|------------------------------------------------------------------------------------------------------|
+| Interface DMZ du FW   | KO    | Cette interface appartient au firewall, de ce fait on n'est pas autorisée par les règles à la pinger.|
 | Interface LAN du FW   | KO    |                              |
 | Client LAN            | OK    |                              |
 | Serveur WAN           | OK    |                              |
@@ -98,7 +98,7 @@ d. Si un ping est effectué sur un serveur externe en utilisant en argument un n
 
 + Faire une capture du ping.
 
-![Tentative de ping vers l'internet](pingDNS.png)
+![](Picture/pingDNS.png)
 
 + Créer et appliquer la règle adéquate pour que la condition 1 du cahier des charges soit respectée.
 
@@ -115,9 +115,11 @@ iptables -A FORWARD -i eth0 -d 192.168.100/24 -p tcp --sport 53 -m state --state
 
 e. Tester en réitérant la commande ping sur le serveur de test (Google ou autre) 
 
-![Tentative de ping vers l'internet](nouvPingDNS.png)
+![](Picture/nouvPingDNS.png)
 
 f. Remarques (sur le message du premier ping)? 
+Les requêtes DNS n'étant pas encore autorisées sur le firewall on a le message :
+temporary failure in name resolution. En effet, on n'a pas réussir à obtenir le nom du domaine de google en lançant notre ping.
 
 
 ### Règles pour les protocoles HTTP et HTTPS
@@ -150,7 +152,7 @@ iptables -A FORWARD -s 192.168.100/24 -o eth0 -p tcp --dport 80 -m state --state
 ```
 g. Tester l’accès à ce serveur depuis le LAN utilisant utilisant wget (ne pas oublier les captures d'écran).
 
-![Accès au serveur web DMZ depuis le LAN](wgetServerDMZ.png)
+![](Picture/wgetServerDMZ.png)
 
 
 ### Règles pour le protocole ssh
