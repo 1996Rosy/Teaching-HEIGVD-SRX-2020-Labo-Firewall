@@ -1,6 +1,6 @@
 # Laboratoire 2 : firewalls
 
-@author : Rosy-Laure Wonjamouna + j'ai pas d'amis soyez indulgents...
+@author : Rosy-Laure Wonjamouna + ... :D
 
 ## Introduction
 L’objectif principal de ce laboratoire est de familiariser les étudiants avec les pares-feu et en particulier avec netfilter et iptables. En premier, une partie théorique permet d’approfondir la rédaction de règles de filtrage.
