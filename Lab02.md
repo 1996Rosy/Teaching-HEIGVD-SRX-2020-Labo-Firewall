@@ -13,26 +13,29 @@ a. En suivant la méthodologie vue en classe, établir la table de filtrage avec
 | Adresse IP source     | Adresse IP destination | Type | Port src | Port dst  | Action |
 |-----------------------|------------------------|------|----------|-----------|--------|
 |(LAN) 192.168.100.0/24 | Interface WAN          | UDP  |          |    53     | ACCEPT | 1.
-|(LAN) 192.168.100.0/24 | Interface WAN          | UDP  |   53     |           | ACCEPT | 1.
+|Interface WAN          |(LAN) 192.168.100.0/24  | UDP  |   53     |           | ACCEPT | 1.
 |(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |          |    53     | ACCEPT | 1.
-|(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |   53     |           | ACCEPT | 1.
-|(LAN) 192.168.100.0/24 | Interface WAN          | ICMP |          |           | ACCEPT | 2.
-|(LAN) 192.168.100.0/24 | (DMZ) 192.168.200.0/24 | ICMP |          |           | ACCEPT | 2.
-|(DMZ) 192.168.200.0/24 | (LAN) 192.168.100.0/24 | ICMP |          |           | ACCEPT | 2.
+|Interface WAN          |(LAN) 192.168.100.0/24  | TCP  |   53     |           | ACCEPT | 1.
+|(LAN) 192.168.100.0/24 | Interface WAN          | ICMP echo-request |          |           | ACCEPT | 2.
+|(LAN) 192.168.100.0/24 | (DMZ) 192.168.200.0/24 | ICMP echo-request |          |           | ACCEPT | 2.
+|(DMZ) 192.168.200.0/24 | (LAN) 192.168.100.0/24 | ICMP echo-request |          |           | ACCEPT | 2.
+|Interface WAN          | (LAN) 192.168.100.0/24 | ICMP echo-reply |          |           | ACCEPT | 2.
+|(DMZ) 192.168.200.0/24 | (LAN) 192.168.100.0/24 | ICMP echo-reply |          |           | ACCEPT | 2.
+|(LAN) 192.168.100.0/24 | (DMZ) 192.168.200.0/24 | ICMP echo-reply |          |           | ACCEPT | 2.
 |(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |          |    80     | ACCEPT | 3.
 |(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |          |    8080   | ACCEPT | 3.
-|(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |   80     |           | ACCEPT | 3.
-|(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |   8080   |           | ACCEPT | 3.
+|Interface WAN          | (LAN) 192.168.100.0/24 | TCP  |   80     |           | ACCEPT | 3.
+|Interface WAN          | (LAN) 192.168.100.0/24 | TCP  |   8080   |           | ACCEPT | 3.
 |(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |          |    443    | ACCEPT | 4.
-|(LAN) 192.168.100.0/24 | Interface WAN          | TCP  |   443    |           | ACCEPT | 4.
+|Interface WAN          | (LAN) 192.168.100.0/24 | TCP  |   443    |           | ACCEPT | 4.
 |(LAN) 192.168.100.0/24 | (DMZ) 192.168.200.3    | TCP  |          |    80     | ACCEPT | 5.
-|(LAN) 192.168.100.0/24 | (DMZ) 192.168.200.3    | TCP  |   80     |           | ACCEPT | 5.
+|(DMZ) 192.168.200.3    | (LAN) 192.168.100.0/24 | TCP  |   80     |           | ACCEPT | 5.
 |Interface WAN          | (DMZ) 192.168.200.3    | TCP  |          |    80     | ACCEPT | 5.
-|Interface WAN          | (DMZ) 192.168.200.3    | TCP  |   80     |           | ACCEPT | 5.
+| (DMZ) 192.168.200.3   | Interface WAN          | TCP  |   80     |           | ACCEPT | 5.
 |(LAN) 192.168.100.3    | (DMZ) 192.168.200.3    | TCP  |          |    22     | ACCEPT | 6.
-|(LAN) 192.168.100.3    | (DMZ) 192.168.200.3    | TCP  |   22     |           | ACCEPT | 6.
+|(DMZ) 192.168.200.3    | (LAN) 192.168.100.3    | TCP  |   22     |           | ACCEPT | 6.
 |(LAN) 192.168.100.3    | (FW)  192.168.100.2    | TCP  |          |    22     | ACCEPT | 7.
-|(LAN) 192.168.100.3    | (FW)  192.168.100.2    | TCP  |   22     |           | ACCEPT | 7.
+|(FW)  192.168.100.2    | (LAN) 192.168.100.3    | TCP  |   22     |           | ACCEPT | 7.
 |                       |                        | ANY  |          |           | BLOCK  | 8.
 
 ## Installation de l’environnement virtualisé
