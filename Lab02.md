@@ -188,7 +188,7 @@ Grâce à SSH on peut se connecter à distance sur une machine et y transférer 
 j. En général, à quoi faut-il particulièrement faire attention lors de l'écriture des règles du pare-feu pour ce type de connexion ?
 
 **Réponse**
-Il faut faire attention à ce que les règles du pare-feu n'autorisent **que** les utilisateurs autorisés à se connecter au serveur SSH
+Il faut faire attention à ce que les règles du pare-feu n'autorisent **que** les utilisateurs autorisés à se connecter au serveur SSH. On ne voudrait pas qu'un utilisateur malveillant se connecte dessus
 
 
 ### Règles finales iptables
