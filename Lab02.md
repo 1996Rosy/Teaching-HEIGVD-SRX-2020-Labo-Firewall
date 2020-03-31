@@ -81,16 +81,16 @@ c. Testez ensuite toutes les règles, depuis le Client_in_LAN puis depuis le ser
 | De Client_in_LAN à    | OK/KO | Commentaires et explications | 
 |-----------------------|-------|------------------------------------------------------------------------------------------------------|
 | Interface DMZ du FW   | KO    | Cette interface appartient au firewall, de ce fait on n'est pas autorisée par les règles à la pinger.|
-| Interface LAN du FW   | KO    |                              |
-| Client LAN            | OK    |                              |
-| Serveur WAN           | OK    |                              |
+| Interface LAN du FW   | KO    | Même chose que pour l'interface DMZ                              |
+| Client LAN            | OK    | Le client peut évidemment se pinger lui même                             |
+| Serveur WAN           | OK    | On laisse passer les pings du LAN au WAN donc forcément le Client_in_LAN peut pinger le serveur WAN                            |
 
 | De Server_in_DMZ à    | OK/KO | Commentaires et explications | 
 |-----------------------|-------|------------------------------|
-| Interface DMZ du FW   | KO    |                              |
-| Interface LAN du FW   | KO    |                              |
-| Client LAN            | OK    |                              |
-| Serveur WAN           | KO    |                              |
+| Interface DMZ du FW   | KO    | Cette interface appartient au firewall, de ce fait on n'est pas autorisée par les règles à la pinger                             |
+| Interface LAN du FW   | KO    | Même chose que pour l'interface DMZ                             |
+| Client LAN            | OK    | On laisse passer les pings du DWZ au LAN donc forcément le Server_in_DMZ peut pinger le client LAN                               |
+| Serveur WAN           | KO    | On n'est pas autorisé par les règles définies avec iptables à pinger le Serveur WAN entant Serveur sur la DMZ                             |
 
 ### Règles pour le protocole DNS
 
